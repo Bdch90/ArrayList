@@ -1,3 +1,4 @@
+package ArrayList;
 
 public class MyList<E> {
     private int size = 0;
@@ -7,12 +8,18 @@ public class MyList<E> {
     public MyList(){}
     public MyList( int capacity)
     {
-        date = (E[]) new Object[capacity];
+        E[] date = (E[]) new Object[capacity];
 
     }
     public void add(int index, E e)
     {
         ensureCapacity();
+        for (int i = size - 1; i >= index; i--)
+        {
+            date[i + 1] = date[i];
+        }
+        date[index] = e;
+        size++;
     }
     public E remove(int index)
     {
@@ -77,12 +84,23 @@ public class MyList<E> {
             date = newDate;
         }
     }
-    public E[] clear()
+    public E get(int index)
     {
+        return date[index];
+    }
+    public String toString()
+    {
+        StringBuilder result = new StringBuilder("[");
+
         for (int i = 0; i < size; i++)
         {
-            E[i] = null;
+            result.append(date[i]);
+            if ( i < size - 1 )
+            {
+                result.append(",");
+            }
         }
-        size= 0;
+        return result.toString() + "]";
     }
+    
 }
